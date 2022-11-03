@@ -5,10 +5,11 @@ import time
 import telebot
 from telebot import types
 
+import config
 import exercise_relax
 import exercise_gym
 
-TOKEN = '' #ТОКЕН ВАШЕГО БОТА
+TOKEN = config.TOKEN #ТОКЕН ВАШЕГО БОТА
 bot = telebot.TeleBot(TOKEN)
 complete_exercise = False
 
@@ -121,8 +122,10 @@ def end(chat_id):
     return answer
 
 
-rnd = list(range(len(exercise_relax.exercise)))
-rndm = list(range(len(exercise_gym.exercises)))
+rnd = list(range(len(exercise_relax.exercise))) 
+rndm = list(range(len(exercise_gym.exercises))) #Списки, где числа без повтора.
+# Сделано для того, чтобы упражнения всегда были рандомные и не повторялись.
+# Сколько упражнений в файле relax и gym - столько чисел в списках.
 
 
 def go1(message):
@@ -351,7 +354,8 @@ def go2_8(message):
     bot.register_next_step_handler(mesg, start_message)
 ##############################################################################
 
-
+#В данном блоке всегда будут одни и те же упражнения, т.к. в целом
+# на глаза после операций мало упражнений, глаза больше должны отдахать.
 def go3(message):
     if message.text == "Да":
         bot.send_message(message.chat.id, "Начнем")
